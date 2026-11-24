@@ -65,3 +65,23 @@ lookalike fonts. Brochures: `Promotion/Brochure/NSC_1_Off-Site_Civil_Works.pdf`,
 `Promotion/Vidoes/UEL/` currently holds only `NSC_Kingston_Sewer_Separation_v17_16x9.mp4`
 (109,847,873 bytes). Do not touch it. Write into a new `Promotion/Vidoes/UEL/Cinematic 20s/`
 (`review/` for checkpoint frames; finals only after approval).
+
+## Decisions and run order for the Mac session (added 2026-11-24)
+The cloud session could not reach OneDrive (no Mac folder was available to it, and the
+Microsoft 365 connector cannot save files), so no real media has been viewed or rendered yet.
+
+- **Logo: the user confirmed `NSC LOGO.png` is the original.** Find it by name and pass it as
+  `--logo` unchanged. It is opaque (blue square), which is fine on the navy end card. Do not use
+  the website SVG. Verify with `tools/logo_check.py`.
+- Drone: `tools/contact_sheet.py --dir <drone dir> --out out/drone_sheet.jpg`, then closer
+  sheets of candidate runs with `--range A-B --thumb 480 --cols 8`. Pass exactly four ranges.
+- Photos: `tools/contact_sheet.py --dir <Photo/2026xx> --names` shows every file including
+  the large ones and HEIC. Copy 6 to 10 picks into `assets/uel_photos/`, write `shots.json`.
+- CCTV: `tools/grab_frame.py --video <file> --sheet out/cctv_sheet.jpg`, then `--time S --out
+  assets/uel_photos/cctv.jpg`. Check the on-screen date and location text belong to this
+  project. If no clean frame exists, set `"labels"` in `shots.json` to match a real photo.
+- Checkpoints: add `--review-dir "<OneDrive>/Promotion/Vidoes/UEL/Cinematic 20s/review"` to each
+  render command. Wait for the user after (a) the two 4K stills, (b) `--draft --sheet`,
+  (c) the final 4K `--sheet`. Copy finals to `Cinematic 20s/` only after approval.
+- Timing seen on a 4-core Linux CPU: draft render about 2 min; one model-upscaled photo
+  about 6 min on CPU (MPS should be much faster). Enhanced plates are cached in `out/cache`.

@@ -6,6 +6,7 @@ network at run time. Every model step has a classical fallback.
 """
 import os
 import functools
+os.environ.setdefault("PYTORCH_ENABLE_MPS_FALLBACK", "1")  # Apple GPU: unsupported ops run on CPU
 import numpy as np
 import cv2
 from PIL import Image, ImageOps
@@ -122,9 +123,20 @@ def esrgan_x4(img, tile=256, pad=16, log=None):
     for n, (y, x) in enumerate(tiles):
         y0, x0 = max(y - pad, 0), max(x - pad, 0)
         y1, x1 = min(y + tile + pad, h), min(x + tile + pad, w)
-        t = torch.from_numpy(img[y0:y1, x0:x1].transpose(2, 0, 1)[None].copy()).to(dev)
-        with torch.no_grad():
-            o = net(t).clamp(0, 1)[0].cpu().numpy().transpose(1, 2, 0)
+        t = torch.from_numpy(img[y0:y1, x0:x1].transpose(2, 0, 1)[None].copy())
+        try:
+            with torch.no_grad():
+                o = net(t.to(dev)).clamp(0, 1)[0].float().cpu().numpy().transpose(1, 2, 0)
+            if not np.isfinite(o).all():
+                raise RuntimeError("non-finite output")
+        except Exception as e:
+            if dev == "cpu":
+                raise
+            if log:
+                log(f"    upscale failed on {dev} ({e}); continuing on CPU (slower)")
+            net, dev = net.to("cpu"), "cpu"
+            with torch.no_grad():
+                o = net(t).clamp(0, 1)[0].numpy().transpose(1, 2, 0)
         ye, xe = min(y + tile, h), min(x + tile, w)
         out[y * 4:ye * 4, x * 4:xe * 4] = o[(y - y0) * 4:(ye - y0) * 4, (x - x0) * 4:(xe - x0) * 4]
         if log and n % 8 == 0:

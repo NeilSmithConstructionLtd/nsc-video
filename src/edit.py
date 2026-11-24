@@ -51,8 +51,14 @@ class Spot:
         if os.path.exists(cfg_path):
             cfg = json.load(open(cfg_path))
             by = {os.path.basename(p): p for p in photos}
-            photos = [by[n] for n in cfg.get("montage", []) if n in by] or photos
+            missing = [n for n in cfg.get("montage", []) if n not in by]
+            if missing:
+                raise SystemExit(f"shots.json lists photos that are not in {photos_dir}: {', '.join(missing)}")
+            photos = [by[n] for n in cfg.get("montage", [])] or photos
         self.focus = cfg.get("focus", {})
+        self.labels = cfg.get("labels", MONTAGE)
+        if len(self.labels) != 6:
+            raise SystemExit("shots.json \"labels\" must list exactly 6 labels, in montage order.")
         if not photos:
             raise SystemExit("No photos found: pass --photos-dir with at least one site photo.")
         self.stills = [photos[i % len(photos)] for i in range(6)]
@@ -66,9 +72,12 @@ class Spot:
                 num = {seq_number(p): p for p in drone}
                 for r in drone_ranges.split(","):
                     a, b = [int(v) for v in r.split("-")]
-                    seg = [num[n] for n in range(a, b + 1) if n in num]
-                    if len(seg) >= 2:
-                        self.segments.append(seg)
+                    gone = [n for n in range(a, b + 1) if n not in num]
+                    if gone or b <= a:
+                        raise SystemExit(f"--drone-ranges {r}: stills not found in {drone_dir}: {gone or 'empty range'}")
+                    self.segments.append([num[n] for n in range(a, b + 1)])
+                if len(self.segments) != 4:
+                    raise SystemExit("--drone-ranges needs exactly four ranges: open, title, stats, hero.")
             else:
                 n = min(stills_per_aerial, max(2, len(drone) // 4))
                 starts = np.linspace(0, len(drone) - n, 4).astype(int)
@@ -150,7 +159,7 @@ class Spot:
             m = idx - 2
             T.shade(img, H * 0.68, H, 0.8)
             T.rect(img, x, H * 0.868, x + px(12), H * 0.868 + px(108), T.GOLD, min(1, tl / 0.12))
-            T.rise_line(img, MONTAGE[m], "head_bold", px(104), T.WHITE, x + px(48), H * 0.866, tl - 0.04, dur=0.3)
+            T.rise_line(img, self.labels[m], "head_bold", px(104), T.WHITE, x + px(48), H * 0.866, tl - 0.04, dur=0.3)
             T.track_line(img, f"0{m + 1} / 06   SCOPE DELIVERED", "mono", px(42), T.GOLD, x + px(46), H * 0.835, tl, dur=0.35, tracking=0.28)
         elif idx == 8:
             T.shade(img, H * 0.50, H, 0.9)
