@@ -14,7 +14,7 @@ def _smoothstep(e0, e1, x):
 
 
 def tone(img, exposure=0.0, contrast=1.12, sat=0.72):
-    img = img * (2.0 ** exposure)
+    img = np.clip(img * (2.0 ** exposure), 0, 1)
     luma = img @ np.array([0.2126, 0.7152, 0.0722], np.float32)
     # desaturate toward luma
     img = luma[..., None] + (img - luma[..., None]) * sat
@@ -94,6 +94,7 @@ def grain(img, amount=0.035, seed=None):
 
 def grade(img, seed=0, exposure=0.0, look=1.0):
     """Full look. `look` 0..1 blends graded vs ungraded."""
+    img = np.nan_to_num(np.clip(img, 0, 1))  # cubic resampling can overshoot below 0
     src = img
     out = tone(img, exposure=exposure)
     out = split_tone(out)

@@ -83,7 +83,7 @@ def over(base, layer, x, y, alpha=1.0, clip_rect=None):
     x1, y1 = min(x + w, W), min(y + h, H)
     if clip_rect is not None:
         cx0, cy0, cx1, cy1 = clip_rect
-        x0, y0, x1, y1 = max(x0, cx0), max(y0, cy0), min(x1, cx1), min(y1, cy1)
+        x0, y0, x1, y1 = max(x0, int(cx0)), max(y0, int(cy0)), min(x1, int(cx1)), min(y1, int(cy1))
     if x1 <= x0 or y1 <= y0:
         return base
     l = layer[y0 - y:y1 - y, x0 - x:x1 - x].astype(np.float32) / 255.0
