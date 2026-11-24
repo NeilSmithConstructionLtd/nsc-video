@@ -1,0 +1,6 @@
+assets/
+weights/
+out/
+__pycache__/
+*.mp4
+*.mov
