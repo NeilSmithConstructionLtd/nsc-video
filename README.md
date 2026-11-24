@@ -14,7 +14,7 @@ and an original sound bed. First spot: UEL / Kingston Road Sanitary & Storm Sepa
   Optional `--drone-ranges "694-700,760-766,840-846,880-886"` picks the four aerial
   shots (open, title, stats, hero) by the 4-digit still number.
 - `--photos-dir`: folder with 6 or more site photos. Used in file-name order for the
-  montage: mains, manholes, service transfers, CCTV/testing, curb, paving. An optional
+  montage: mains, manholes, service transfers, crew on site, curb, paving. An optional
   `shots.json` in that folder overrides order and framing:
   `{"montage": ["a.jpg", ...], "focus": {"a.jpg": [0.5, 0.4]}, "labels": ["...", 6 in all]}`.
   `labels` replaces the six montage captions (use it when a caption has no honest photo).

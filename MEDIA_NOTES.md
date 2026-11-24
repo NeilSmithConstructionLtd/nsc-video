@@ -25,7 +25,7 @@ Focus values below are rough (x, y) fractions of the frame.
 | | alt `IMG_0883.jpeg` | 202605 | portrait | Close-up of manhole base with level across it | 0.5, 0.55 |
 | SERVICE TRANSFERS | `1000023531.JPG` | 202609 | portrait, ~1 MB | Two new PVC service laterals with inspection chambers, worker in NSC vest | 0.5, 0.45 |
 | | alt `IMG_1253.jpeg` | 202606 | portrait | PVC wye joined onto the green main, top-down | 0.65, 0.5 |
-| CCTV & PRESSURE TESTED | **no honest photo found** | | | See below | |
+| OUR CREW ON SITE | `IMG_1170.jpeg` (candidate) | 202606 | portrait | NSC crew in a shored excavation; look for a better team photo among the larger files | check |
 | CURB & SIDEWALK | `IMG_8974.jpeg` | 202610 | portrait | Fresh sidewalk slab behind a service riser, no markup | check |
 | | avoid `IMG_8959`, `IMG_8955`, `IMG_9109` | 202610 | | Measurements are written over the image | |
 | PAVED & RESTORED | `81309756437__010FB679-AF5D-48E6-A14D-608F65227F6B.jpeg` | 202610 | portrait | New asphalt and curbs, blue sky (top half is sky) | 0.5, 0.8 |
@@ -34,15 +34,13 @@ Focus values below are rough (x, y) fractions of the frame.
 
 Unviewed but likely useful: `202610/IMG_8762` to `IMG_9123` (probably the curb and paving series).
 
-### CCTV and pressure testing
-No usable still. `202605/IMG_6376 1.jpeg` shows a CCTV monitor but its on-screen date is
-04-30-2025, which does not fit this project: do not use it. Options, in order:
-1. Grab a frame from the project's own post-construction CCTV videos:
-   `PROJECTS/2026/Kingston Sewer Separation/Construction/Reports/Test Results/Storm & Sanitary Sewers/`
-   (`CCTV 1`, `CCTV 2`, `CCTV Deficiency`; e.g. `Report #1-3 LACP/Rpt 1 - CB 1 - SW.MP4`).
-   Pressure tests exist only as 2 PDF reports.
-2. Otherwise change the label to match a real photo (for example shored excavation
-   `202606/IMG_1170.jpeg`, or compaction in a trench box `202606/IMG_1187`).
+### User decisions (2026-11-24)
+- **No CCTV or testing shot.** This is an ad whose purpose is to show a great team. Slot 4 of the
+  montage is a crew photo: the best shot of NSC people working together on the UEL site. Adjust
+  the label to what the photo shows. For the other slots, prefer photos with NSC people and
+  NSC-branded equipment in frame.
+- **Logo: the original `NSC LOGO.png`** (full lockup), resized only. Not the website SVG.
+
 Do not use `IMG_8086` without checking: it may be a different site.
 
 ## Logo
@@ -52,8 +50,7 @@ Do not use `IMG_8086` without checking: it may be a different site.
   so it is enough if used as is).
 - `NSC LOGO.jpg`, same drive: "NSC" only, about 770 px, no transparency.
 - `Ongoing/nsc-website-optionC-github/nsc-logo.svg` in the user's own OneDrive: the only
-  vector, but possibly redrawn for the website. **Ask the user which file is the original**
-  before using the SVG.
+  vector, but possibly redrawn for the website. do not use (user chose `NSC LOGO.png`).
 - No AI/EPS/PDF logo found. `Promotion` contains no logo files.
 
 ## Fonts and brochure

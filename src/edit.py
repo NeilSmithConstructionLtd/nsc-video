@@ -20,7 +20,7 @@ SHOTS = [
     (17.0, 20.0, "end"),
 ]
 MONTAGE = ["SANITARY & STORM MAINS", "PRECAST MANHOLES", "SERVICE TRANSFERS",
-           "CCTV & PRESSURE TESTED", "CURB & SIDEWALK", "PAVED & RESTORED"]
+           "OUR CREW ON SITE", "CURB & SIDEWALK", "PAVED & RESTORED"]
 STATS = [(12, "", "NEW PRECAST", "MANHOLES"), (15, "", "PROPERTIES", "RECONNECTED"),
          (7, "", "NEW CATCH", "BASINS"), (100, "%", "OF HOMES KEPT", "IN SERVICE")]
 # per-aerial camera: (zoom0, zoom1, rot0, rot1, cx0, cy0, cx1, cy1)
